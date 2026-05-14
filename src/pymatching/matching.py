@@ -169,21 +169,36 @@ class Matching:
         self._matching_graph.SO_calculator_setup()
 
     def SO_calculator_setup(self) -> None:
-        """
-        
+        """Method that must be called before calling
+        any other soft-output-related methods.
         """
         self._matching_graph.SO_calculator_setup()
     
     def add_boundary_node_SO(self, boundary_index: np.uint32) -> None:
-        """
+        """Add a distinct boundary node to the matching graph.
         
+        The distinct boundary node indices should start
+        1 higher than that of the highest detector index
+        and increase consecutively.
         """
         self._matching_graph.add_boundary_node_SO(boundary_index)
 
     def add_boundary_edge_SO(self, inner_index: np.uint32, boundary_index: np.uint32) -> None:
+        """Add a boundary edge from a detector node to a distinct boundary node."""
         self._matching_graph.add_boundary_edge_SO(inner_index, boundary_index)
     
     def add_cycle_endpoints_pair_SO(self, start_index: np.uint32, end_index: np.uint32) -> None:
+        """Add a pair of nodes between which the swim distance should be calculated.
+        
+        This function is essential for calculating the soft outputs.
+        By adding a pair of endpoints via this function,
+        the program calculates the distance between them via Dijkstra's algorithm
+        after each round of decoding.
+        You may add more than one pair of endpoints.
+        The `decode_batch_soft_output` function will evaluate the distance
+        for each pair of endpoints
+        and output the smallest distance among those pairs.
+        """
         self._matching_graph.add_cycle_endpoints_pair_SO(start_index, end_index)
     
     def add_cycle_endpoints_pair_mono_SO(self, start_index: np.uint32, end_index: np.uint32) -> None:
@@ -497,7 +512,7 @@ class Matching:
             detection event `m` in shot `s` can be found at ``(dets[s, m // 8] >> (m % 8)) & 1``.
         return_weights : bool
             If True, then also return a numpy array containing the soft outputs of the solutions for all the shots.
-            By default, False.
+            By default, True.
         bit_packed_shots : bool
             Set to `True` to provide `shots` as a bit-packed array, such that the bit for
             detection event `m` in shot `s` can be found at ``(dets[s, m // 8] >> (m % 8)) & 1``.
