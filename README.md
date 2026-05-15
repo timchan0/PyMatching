@@ -19,7 +19,7 @@ but with a bug fix.
 Install the customized `pymatching` package in editable mode:
 1. Git clone the customized version:
     ```
-    git clone --recursive https://github.com/timchan0/PyMatching
+    git clone --recursive -b simple-instructions https://github.com/timchan0/PyMatching
     ```
 2. Go to the cloned PyMatching folder, then:
     ```
@@ -28,7 +28,8 @@ Install the customized `pymatching` package in editable mode:
 
 ## Usage
 
-See `SO_example/mwe.ipynb`.
+See `SO_example/mwe.ipynb`
+(this notebook currently exists only on the `simple-instructions` branch).
 
 ## Zihan-Chen's Description
 The soft-output method in [arXiv:2405.07433](https://arxiv.org/abs/2405.07433) by Meister et al. serves a similar purpose as the complementary gap method in 
